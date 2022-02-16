@@ -49,6 +49,24 @@ class Player {
   }
 }
 
+class Pellet {
+  constructor({
+    position
+  }) {
+    this.position = position;
+    this.radius = 3;
+  }
+
+  draw() {
+    c.beginPath();
+    c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+    c.fillStyle = 'white';
+    c.fill();
+    c.closePath();
+  }
+}
+
+const pellets = [];
 const boundaries = [];
 const player = new Player({
   position: {
@@ -282,7 +300,7 @@ map.forEach((row, i) => {
           })
         );
         break;
-        /* case '.':
+      case '.':
         pellets.push(
           new Pellet({
             position: {
@@ -291,7 +309,7 @@ map.forEach((row, i) => {
             }
           })
         );
-        break; */
+        break;
     }
   });
 });
@@ -392,6 +410,10 @@ function animate() {
       }
     }
   }
+
+  pellets.forEach(pellet => {
+    pellet.draw();
+  });
 
   boundaries.forEach(boundary => {
     boundary.draw();
