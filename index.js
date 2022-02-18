@@ -1,6 +1,8 @@
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
+const scoreEl = document.querySelector('#scoreEl');
+
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
@@ -95,6 +97,7 @@ const keys = {
 };
 
 let lastKey = '';
+let score = 0;
 
 const map = [
   ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
@@ -411,16 +414,16 @@ function animate() {
     }
   }
 
+  // touch pellets here
   for (let i = pellets.length - 1; 0 < i; i--) {
     const pellet = pellets[i];
-    pellets.forEach((pellet, i) => {
-      pellet.draw();
+    pellet.draw();
 
-      if (Math.hypot(pellet.position.x - player.position.x, pellet.position.y - player.position.y) < pellet.radius + player.radius) {
-        console.log('touching');
-        pellets.splice(i, 1);
-      }
-    });
+    if (Math.hypot(pellet.position.x - player.position.x, pellet.position.y - player.position.y) < pellet.radius + player.radius) {
+      pellets.splice(i, 1);
+      score += 10;
+      scoreEl.innerHTML = score;
+    }
   }
 
 
